@@ -13,10 +13,14 @@ class MapViewController: UIViewController {
     var mapView: MKMapView!
     
     //MARK: - LoadView()
-    override func loadView() {
+    override func loadView() { //FIX(?)
         mapView = MKMapView()
         self.view = mapView
+    }
+    //MARK: - ViewDidLoad()
+    override func viewDidLoad() {
         
+        mapView.showsUserLocation = true
         //MARK: SegmentedControl
         let segmentedControl = UISegmentedControl(items: ["Standart", "Hybrid", "Satellite"])
         segmentedControl.backgroundColor = .systemBackground
@@ -33,10 +37,9 @@ class MapViewController: UIViewController {
         topConstraint.isActive = true
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
-        
     }
     
-    //MARK: - Functions
+    //MARK: - Actions
     @objc func mapTypeChanged(_ segControl: UISegmentedControl) {
         switch segControl.selectedSegmentIndex {
         case 0:

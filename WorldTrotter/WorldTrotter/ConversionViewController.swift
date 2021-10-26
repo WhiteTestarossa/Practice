@@ -7,27 +7,56 @@
 
 import UIKit
 
-class ConversionViewController: UIViewController {
+class ConversionViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Public Properties
-    var fahrenheitNumberLabel: UILabel!
+    var fahrenheitNumberTextField: UITextField!
     var dgsFahrenheitLabel: UILabel!
     var isRlyLabel: UILabel!
     var celciusNumberLabel: UILabel!
     var dgsCelciusLabel: UILabel!
+    var fahrenheitValue: Measurement<UnitTemperature>? {
+        didSet {
+            updateCelciusLabel()
+        }
+    }
+    var celciusValue: Measurement<UnitTemperature>? {
+        if let fahrenheitValue = fahrenheitValue {
+            return fahrenheitValue.converted(to: .celsius)
+        } else {
+            return nil
+        }
+    }
+    let numberFormatter: NumberFormatter = {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.minimumFractionDigits = 0
+        nf.maximumFractionDigits = 1
+        return nf
+    }()
     
-    // MARK: - LoadView()
-    override func loadView() {
-        let backgroundView = UIView()
-        self.view = backgroundView
+    //MARK: - ViewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor(red: CGFloat(245)/255, green: CGFloat(244)/255, blue: CGFloat(241)/255, alpha: 1.0)
         let labelsColor = UIColor(red: CGFloat(225)/255, green: CGFloat(88)/255, blue: CGFloat(41)/255, alpha: 1.0)
         
-        fahrenheitNumberLabel = UILabel()
-        fahrenheitNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(fahrenheitNumberLabel)
-        fahrenheitNumberLabel.text = "212"
-        fahrenheitNumberLabel.textColor = labelsColor
-        fahrenheitNumberLabel.font = .systemFont(ofSize: CGFloat(70))
+        //MARK: TextFields and Labels
+        fahrenheitNumberTextField = UITextField()
+        fahrenheitNumberTextField.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(fahrenheitNumberTextField)
+        fahrenheitNumberTextField.placeholder = "Value"
+        fahrenheitNumberTextField.textColor = labelsColor
+        fahrenheitNumberTextField.font = .systemFont(ofSize: CGFloat(70))
+        fahrenheitNumberTextField.textAlignment = .center
+        fahrenheitNumberTextField.borderStyle = .none
+        fahrenheitNumberTextField.adjustsFontSizeToFitWidth = false
+        fahrenheitNumberTextField.minimumFontSize = 17
+        fahrenheitNumberTextField.keyboardType = .decimalPad
+        fahrenheitNumberTextField.autocorrectionType = .no
+        fahrenheitNumberTextField.spellCheckingType = .no
+        fahrenheitNumberTextField.addTarget(self, action: #selector(fahrenheitTextFieldEditingChanged(_:)), for: .editingChanged)
+        fahrenheitNumberTextField.delegate = self
         
         dgsFahrenheitLabel = UILabel()
         dgsFahrenheitLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -56,24 +85,59 @@ class ConversionViewController: UIViewController {
         dgsCelciusLabel.textColor = labelsColor
         dgsCelciusLabel.font = .systemFont(ofSize: CGFloat(36))
         
+        //MARK: Constraints
         NSLayoutConstraint.activate([
-            fahrenheitNumberLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8.0),
-            fahrenheitNumberLabel.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
-            dgsFahrenheitLabel.topAnchor.constraint(equalTo: fahrenheitNumberLabel.bottomAnchor, constant: 8.0),
-            dgsFahrenheitLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberLabel.centerXAnchor),
+            fahrenheitNumberTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8.0),
+            fahrenheitNumberTextField.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            dgsFahrenheitLabel.topAnchor.constraint(equalTo: fahrenheitNumberTextField.bottomAnchor, constant: 8.0),
+            dgsFahrenheitLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor),
             isRlyLabel.topAnchor.constraint(equalTo: dgsFahrenheitLabel.bottomAnchor, constant: 8.0),
-            isRlyLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberLabel.centerXAnchor),
+            isRlyLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor),
             celciusNumberLabel.topAnchor.constraint(equalTo: isRlyLabel.bottomAnchor, constant: 8.0),
-            celciusNumberLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberLabel.centerXAnchor),
+            celciusNumberLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor),
             dgsCelciusLabel.topAnchor.constraint(equalTo: celciusNumberLabel.bottomAnchor, constant: 8.0),
-            dgsCelciusLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberLabel.centerXAnchor)
+            dgsCelciusLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor)
         ])
         
+        //MARK: GestureRecognizer
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard(_:)))
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(tapGestureRecognizer)
         
+        updateCelciusLabel()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    //MARK: - Actions
+    @objc func fahrenheitTextFieldEditingChanged(_ textField: UITextField) {
+        if let text = textField.text, let value = Double(text) {
+            fahrenheitValue = Measurement(value: value, unit: .fahrenheit)
+        } else {
+            fahrenheitValue = nil
+        }
+    }
+    
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        fahrenheitNumberTextField.resignFirstResponder()
+    }
+    
+    //MARK: - Methods
+    func updateCelciusLabel() {
+        if let celciusValue = celciusValue {
+            celciusNumberLabel.text = numberFormatter.string(from: NSNumber(value: celciusValue.value))
+        } else {
+            celciusNumberLabel.text = "?"
+        }
+    }
+    
+    //MARK: - TextField Delegate Methods
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let existingTextHasDecimalSeparator = textField.text?.range(of: ".")
+        let replacementTextHasDecimalSeparator = string.range(of: ".")
+        if existingTextHasDecimalSeparator != nil, replacementTextHasDecimalSeparator != nil {
+            return false
+        } else {
+            return true
+        }
     }
     
     
