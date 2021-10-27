@@ -74,9 +74,10 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         celciusNumberLabel = UILabel()
         celciusNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(celciusNumberLabel)
-        celciusNumberLabel.text = "100"
         celciusNumberLabel.textColor = labelsColor
         celciusNumberLabel.font = .systemFont(ofSize: CGFloat(70))
+        celciusNumberLabel.numberOfLines = 0
+        celciusNumberLabel.textAlignment = .center
         
         dgsCelciusLabel = UILabel()
         dgsCelciusLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,12 +90,20 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activate([
             fahrenheitNumberTextField.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8.0),
             fahrenheitNumberTextField.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor),
+            fahrenheitNumberTextField.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            fahrenheitNumberTextField.trailingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            
             dgsFahrenheitLabel.topAnchor.constraint(equalTo: fahrenheitNumberTextField.bottomAnchor, constant: 8.0),
             dgsFahrenheitLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor),
+            
             isRlyLabel.topAnchor.constraint(equalTo: dgsFahrenheitLabel.bottomAnchor, constant: 8.0),
             isRlyLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor),
+            
             celciusNumberLabel.topAnchor.constraint(equalTo: isRlyLabel.bottomAnchor, constant: 8.0),
             celciusNumberLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor),
+            celciusNumberLabel.leadingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            celciusNumberLabel.trailingAnchor.constraint(greaterThanOrEqualTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            
             dgsCelciusLabel.topAnchor.constraint(equalTo: celciusNumberLabel.bottomAnchor, constant: 8.0),
             dgsCelciusLabel.centerXAnchor.constraint(equalTo: fahrenheitNumberTextField.centerXAnchor)
         ])
