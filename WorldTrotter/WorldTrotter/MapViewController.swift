@@ -7,20 +7,26 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class MapViewController: UIViewController {
-    
+class MapViewController: UIViewController, MKMapViewDelegate {
+    //Public Properties
     var mapView: MKMapView!
+    var locationManager: CLLocationManager!
+    var latitude: CLLocationDegrees?
+    var longitude: CLLocationDegrees?
+    
     
     //MARK: - LoadView()
     override func loadView() { //FIX(?)
         mapView = MKMapView()
         self.view = mapView
     }
+    
     //MARK: - ViewDidLoad()
     override func viewDidLoad() {
+        super.viewDidLoad()
         
-        mapView.showsUserLocation = true
         //MARK: SegmentedControl
         let segmentedControl = UISegmentedControl(items: ["Standart", "Hybrid", "Satellite"])
         segmentedControl.backgroundColor = .systemBackground
@@ -37,6 +43,8 @@ class MapViewController: UIViewController {
         topConstraint.isActive = true
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
+        
+        UserLocation()
     }
     
     //MARK: - Actions
@@ -51,6 +59,21 @@ class MapViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    //MARK: - Methods
+    func UserLocation() {
+        locationManager = CLLocationManager()
+        locationManager.requestWhenInUseAuthorization()
+        mapView.delegate = self
+        mapView.showsUserLocation = true
+    }
+    
+    //MARK: - MapView Delegate Methods
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.08, longitudeDelta: 0.08)
+        let region = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
     
 }
