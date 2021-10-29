@@ -24,7 +24,7 @@ class Item {
     
     convenience init(random: Bool = false) {
         if random {
-            let adjectives = ["Fluffy", "Rusty", "Shiny"]
+            let adjectives = ["Fluffyasdhfjshafjhsafhajsdlfjlksafjlsajfsdfhkj", "Rusty", "Shiny"]
             let nouns = ["Bear", "Spork", "Mac"]
             let randomAdjective = adjectives.randomElement()!
             let randomNoun = nouns.randomElement()!
