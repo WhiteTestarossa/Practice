@@ -21,22 +21,28 @@ class ItemCell: UITableViewCell {
         nameLabel.font = UIFont.preferredFont(forTextStyle: .body)
         nameLabel.adjustsFontForContentSizeCategory = true
         nameLabel.numberOfLines = 0
+        nameLabel.backgroundColor = .lightGray
+        nameLabel.setContentHuggingPriority(., for: <#T##NSLayoutConstraint.Axis#>)
         serialNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         serialNumberLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         serialNumberLabel.textColor = .secondaryLabel
         serialNumberLabel.adjustsFontForContentSizeCategory = true
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        valueLabel.backgroundColor = .lightGray
         valueLabel.adjustsFontForContentSizeCategory = true
+        
         
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(serialNumberLabel)
         self.contentView.addSubview(valueLabel)
         
+        // FIXME: Long Text Editing Mode Exit Bug
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.valueLabel.leadingAnchor, constant: -40.0),
+//            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.valueLabel.leadingAnchor, constant: -40.0),
+            nameLabel.widthAnchor.constraint(equalToConstant: nameLabel.intrinsicContentSize.width),
             serialNumberLabel.leadingAnchor.constraint(equalTo: self.nameLabel.leadingAnchor),
             serialNumberLabel.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
             valueLabel.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor),

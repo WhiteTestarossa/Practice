@@ -7,7 +7,11 @@
 
 import UIKit
 
-class Item {
+class Item: Equatable {
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        lhs.name == rhs.name && lhs.valueInDollars == rhs.valueInDollars && lhs.serialNumber == rhs.serialNumber && lhs.dateCreated == rhs.dateCreated
+    }
+    
     //MARK: - Public Properties
     var name: String
     var valueInDollars: Int
