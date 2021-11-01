@@ -22,7 +22,7 @@ class ItemCell: UITableViewCell {
         nameLabel.adjustsFontForContentSizeCategory = true
         nameLabel.numberOfLines = 0
         nameLabel.backgroundColor = .lightGray
-        nameLabel.setContentHuggingPriority(., for: <#T##NSLayoutConstraint.Axis#>)
+        nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal) //fixes that editing mode dumb bug
         serialNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         serialNumberLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
         serialNumberLabel.textColor = .secondaryLabel
@@ -33,23 +33,23 @@ class ItemCell: UITableViewCell {
         valueLabel.adjustsFontForContentSizeCategory = true
         
         
+        
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(serialNumberLabel)
         self.contentView.addSubview(valueLabel)
         
-        // FIXME: Long Text Editing Mode Exit Bug
+        
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor),
-//            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.valueLabel.leadingAnchor, constant: -40.0),
-            nameLabel.widthAnchor.constraint(equalToConstant: nameLabel.intrinsicContentSize.width),
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.valueLabel.leadingAnchor, constant: -40.0),
             serialNumberLabel.leadingAnchor.constraint(equalTo: self.nameLabel.leadingAnchor),
             serialNumberLabel.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
             valueLabel.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor),
             valueLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
             serialNumberLabel.topAnchor.constraint(equalToSystemSpacingBelow: self.nameLabel.bottomAnchor, multiplier: 1.0)
         ])
-    
+        
     }
     
     required init?(coder: NSCoder) {
