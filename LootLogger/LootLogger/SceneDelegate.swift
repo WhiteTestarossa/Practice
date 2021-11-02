@@ -15,12 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = ItemsViewController()
+            self.window?.rootViewController = DetailViewController()
             self.window?.backgroundColor = .white
             self.window?.makeKeyAndVisible()
             let itemStore = ItemStore()
-            let itemsViewController = self.window?.rootViewController as! ItemsViewController
-            itemsViewController.itemStore = itemStore
+            let DetailVC = self.window?.rootViewController as! DetailViewController
+//            itemsViewController.itemStore = itemStore
             
         }
     }

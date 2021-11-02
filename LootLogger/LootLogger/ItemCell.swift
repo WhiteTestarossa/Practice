@@ -16,12 +16,10 @@ class ItemCell: UITableViewCell {
     //MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont.preferredFont(forTextStyle: .body)
         nameLabel.adjustsFontForContentSizeCategory = true
         nameLabel.numberOfLines = 0
-        nameLabel.backgroundColor = .lightGray
         nameLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: .horizontal) //fixes that editing mode dumb bug
         serialNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         serialNumberLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
@@ -29,7 +27,6 @@ class ItemCell: UITableViewCell {
         serialNumberLabel.adjustsFontForContentSizeCategory = true
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         valueLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        valueLabel.backgroundColor = .lightGray
         valueLabel.adjustsFontForContentSizeCategory = true
         
         
