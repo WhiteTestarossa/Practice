@@ -39,7 +39,7 @@ class ItemCell: UITableViewCell {
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             nameLabel.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor),
-            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.valueLabel.leadingAnchor, constant: -40.0),
+            nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: self.valueLabel.leadingAnchor, constant: -30.0),
             serialNumberLabel.leadingAnchor.constraint(equalTo: self.nameLabel.leadingAnchor),
             serialNumberLabel.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
             valueLabel.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor),

@@ -14,13 +14,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
+            let itemsViewController = ItemsViewController(nibName: nil, bundle: nil)
+            let navigationController = UINavigationController(rootViewController: itemsViewController)
             self.window = UIWindow(windowScene: windowScene)
-            self.window?.rootViewController = DetailViewController()
-            self.window?.backgroundColor = .white
+            self.window?.rootViewController = navigationController
             self.window?.makeKeyAndVisible()
+            
             let itemStore = ItemStore()
-            let DetailVC = self.window?.rootViewController as! DetailViewController
-//            itemsViewController.itemStore = itemStore
+            itemsViewController.itemStore = itemStore
             
         }
     }

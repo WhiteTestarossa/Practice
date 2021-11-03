@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate {
     //MARK: - Public Properties
     var nameLabel: UILabel!
     var serialNumberLabel: UILabel!
@@ -25,9 +25,28 @@ class DetailViewController: UIViewController {
     
     var stackView: UIStackView!
     
+    var item: Item! {
+        didSet {
+            navigationItem.title = item.name
+        }
+    }
     
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+
+    let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
     
-    //MARK: - ViewDidLoad()
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,6 +94,7 @@ class DetailViewController: UIViewController {
         valueTextField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         valueTextField.translatesAutoresizingMaskIntoConstraints = false
         valueTextField.borderStyle = .roundedRect
+        valueTextField.keyboardType = .numberPad
         //MARK: Value StackView
         valueStackView = UIStackView()
         valueStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +135,44 @@ class DetailViewController: UIViewController {
             stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8.0),
             stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8.0)
         ])
-
-      
+        
+        nameTextField.delegate = self
+        serialTextField.delegate = self
+        valueTextField.delegate = self
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backGroundTapped(_:)))
+        self.view.isUserInteractionEnabled = true
+        self.view.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        nameTextField.text = item.name
+        serialTextField.text = item.serialNumber
+        valueTextField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
+        dateCreatedLabel.text = dateFormatter.string(from: item.dateCreated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        item.name = nameTextField.text ?? "Empty"
+        item.serialNumber = serialTextField.text
+        if let valueText = valueTextField.text, let value = numberFormatter.number(from: valueText) {
+            item.valueInDollars = value.intValue
+        } else {
+            item.valueInDollars = 0
+        }
+        view.endEditing(true)
+    }
+    
+    //MARK: - Actions
+    @objc func backGroundTapped(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
+    //MARK: - TextField Delegate Methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
