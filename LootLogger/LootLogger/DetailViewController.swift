@@ -8,7 +8,7 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
+    //MARK: - Public Properties
     var nameLabel: UILabel!
     var serialNumberLabel: UILabel!
     var valueLabel: UILabel!
@@ -34,12 +34,12 @@ class DetailViewController: UIViewController {
         //MARK: Name Label and TextField
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        nameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         nameLabel.text = "Name"
         nameTextField = UITextField()
         nameTextField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         nameTextField.translatesAutoresizingMaskIntoConstraints = false
         nameTextField.borderStyle = .roundedRect
-        nameLabel.backgroundColor = .cyan
         //MARK: Name StackView
         nameStackView = UIStackView()
         nameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -58,8 +58,6 @@ class DetailViewController: UIViewController {
         serialTextField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         serialTextField.translatesAutoresizingMaskIntoConstraints = false
         serialTextField.borderStyle = .roundedRect
-        serialNumberLabel.backgroundColor = .blue
-        
         //MARK: Serial StackView
         serialStackView = UIStackView()
         serialStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,8 +75,6 @@ class DetailViewController: UIViewController {
         valueTextField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         valueTextField.translatesAutoresizingMaskIntoConstraints = false
         valueTextField.borderStyle = .roundedRect
-        valueLabel.backgroundColor = .black
-        
         //MARK: Value StackView
         valueStackView = UIStackView()
         valueStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -87,9 +83,9 @@ class DetailViewController: UIViewController {
         valueStackView.addArrangedSubview(valueLabel)
         valueStackView.addArrangedSubview(valueTextField)
         
+        //MARK: Date Label
         dateCreatedLabel = UILabel()
         dateCreatedLabel.text = "DATE"
-        dateCreatedLabel.backgroundColor = .systemTeal
         dateCreatedLabel.translatesAutoresizingMaskIntoConstraints = false
         dateCreatedLabel.textAlignment = .center
         dateCreatedLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
@@ -108,10 +104,10 @@ class DetailViewController: UIViewController {
         self.stackView.addArrangedSubview(dateCreatedLabel)
         self.view.addSubview(stackView)
         
-//        NSLayoutConstraint.activate([
-//            nameTextField.leadingAnchor.constraint(equalTo: serialTextField.leadingAnchor),
-//            serialTextField.leadingAnchor.constraint(equalTo: valueTextField.leadingAnchor)
-//        ])
+        NSLayoutConstraint.activate([
+            nameTextField.leadingAnchor.constraint(equalTo: serialTextField.leadingAnchor),
+            serialTextField.leadingAnchor.constraint(equalTo: valueTextField.leadingAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leadingAnchor),
