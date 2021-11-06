@@ -9,6 +9,7 @@ import UIKit
 class ItemsViewController: UITableViewController {
     //MARK: - Public Properties
     var itemStore: ItemStore!
+    var imageStore: ImageStore!
     let cellID = "Cell"
     
     //MARK: - ViewDidLoad()
@@ -58,6 +59,7 @@ class ItemsViewController: UITableViewController {
         if editingStyle == .delete {
             let item = itemStore.allItems[indexPath.row]
             itemStore.removeItem(item)
+            imageStore.deleteImage(forKey: item.itemKey)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -76,6 +78,7 @@ class ItemsViewController: UITableViewController {
             let detailViewController = DetailViewController()
             detailViewController.view.backgroundColor = .white
             detailViewController.item = item
+            detailViewController.imageStore = imageStore
             navigationController?.pushViewController(detailViewController, animated: true)
         }
     }

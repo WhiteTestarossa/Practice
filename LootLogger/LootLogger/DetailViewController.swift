@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     //MARK: - Public Properties
     var nameLabel: UILabel!
     var serialNumberLabel: UILabel!
@@ -24,6 +24,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var valueStackView: UIStackView!
     
     var stackView: UIStackView!
+    var toolBar: UIToolbar!
+    var imageView: UIImageView!
+    
+    var imageStore: ImageStore!
     
     var item: Item! {
         didSet {
@@ -38,7 +42,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         formatter.maximumFractionDigits = 2
         return formatter
     }()
-
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -66,8 +70,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         nameStackView.spacing = 8
         nameStackView.addArrangedSubview(nameLabel)
         nameStackView.addArrangedSubview(nameTextField)
-
-
+        
+        
         
         //MARK: Serial Label and TextField
         serialNumberLabel = UILabel()
@@ -110,6 +114,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         dateCreatedLabel.textAlignment = .center
         dateCreatedLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
         
+        //MARK: - ToolBar
+        toolBar = UIToolbar() // FIXME: CONSTRAINT BUG?
+        toolBar.translatesAutoresizingMaskIntoConstraints = false
+        var toolBarItems = [UIBarButtonItem]()
+        toolBarItems.append(UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(choosePhotoSource(_:))))
+        toolBar.setItems(toolBarItems, animated: true)
+        
+        //MARK: - ImageView
+        imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.setContentHuggingPriority(UILayoutPriority(rawValue: 248), for: .vertical)
+        imageView.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: .vertical)
+        imageView.contentMode = .scaleAspectFit
+        
         //MARK: - Vetical StackView
         stackView = UIStackView()
         stackView.axis = .vertical
@@ -122,7 +140,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         self.stackView.addArrangedSubview(serialStackView)
         self.stackView.addArrangedSubview(valueStackView)
         self.stackView.addArrangedSubview(dateCreatedLabel)
+        self.stackView.addArrangedSubview(imageView)
         self.view.addSubview(stackView)
+        self.view.addSubview(toolBar)
         
         NSLayoutConstraint.activate([
             nameTextField.leadingAnchor.constraint(equalTo: serialTextField.leadingAnchor),
@@ -133,7 +153,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             stackView.leadingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: self.view.layoutMarginsGuide.trailingAnchor),
             stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8.0),
-            stackView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -8.0)
+        ])
+        
+        NSLayoutConstraint.activate([
+            toolBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            toolBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            toolBar.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            toolBar.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8.0),
+        ])
+        
+        NSLayoutConstraint.activate([
+            
         ])
         
         nameTextField.delegate = self
@@ -151,6 +181,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         serialTextField.text = item.serialNumber
         valueTextField.text = numberFormatter.string(from: NSNumber(value: item.valueInDollars))
         dateCreatedLabel.text = dateFormatter.string(from: item.dateCreated)
+        let key = item.itemKey
+        let imageToDisplay = imageStore.image(forKey: key)
+        imageView.image = imageToDisplay
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -169,10 +202,47 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @objc func backGroundTapped(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
+    @objc func choosePhotoSource(_ sender: UIBarButtonItem) {
+        let allertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraAction = UIAlertAction(title: "Camera", style: .default) { _ in
+                let imagePicker = self.imagePicker(for: .camera)
+                self.present(imagePicker, animated: true, completion: nil)
+            }
+            allertController.addAction(cameraAction)
+        }
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { _ in
+            let imagePicker = self.imagePicker(for: .photoLibrary)
+            imagePicker.modalPresentationStyle = .popover
+            imagePicker.popoverPresentationController?.barButtonItem = sender
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+        allertController.addAction(photoLibraryAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        allertController.addAction(cancelAction)
+        present(allertController, animated: true, completion: nil)
+    }
     
     //MARK: - TextField Delegate Methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    //MARK: - Additional Methods
+    func imagePicker(for sourceType: UIImagePickerController.SourceType) -> UIImagePickerController {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = sourceType
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        return imagePicker
+    }
+    
+    //MARK: - ImagePicker Delegate Methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.editedImage] as! UIImage
+        imageStore.setImage(image, forKey: item.itemKey)
+        imageView.image = image
+        dismiss(animated: true, completion: nil)
     }
 }

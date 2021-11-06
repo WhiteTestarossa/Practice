@@ -17,6 +17,7 @@ class Item: Equatable, Codable {
     var valueInDollars: Int
     var serialNumber: String?
     var dateCreated: Date
+    var itemKey: String
     
     //MARK: - Initializers
     init(name: String, serialNumber: String?, valueInDollars: Int) {
@@ -24,6 +25,7 @@ class Item: Equatable, Codable {
         self.valueInDollars = valueInDollars
         self.serialNumber = serialNumber
         self.dateCreated = Date()
+        self.itemKey = UUID().uuidString
     }
     
     convenience init(random: Bool = false) {

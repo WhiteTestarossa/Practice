@@ -21,7 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.makeKeyAndVisible()
             
             let itemStore = ItemStore()
+            let imageStore = ImageStore()
             itemsViewController.itemStore = itemStore
+            itemsViewController.imageStore = imageStore
             
         }
     }

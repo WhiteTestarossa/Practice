@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		93057ED3272FC6270044909A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93057ED2272FC6270044909A /* DetailViewController.swift */; };
+		937152032736678F00AFACF7 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937152022736678F00AFACF7 /* ImageStore.swift */; };
 		938D3D84272BDF77005B7896 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D3D83272BDF76005B7896 /* ItemCell.swift */; };
 		93E8FE6E272A85BB00318DCF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E8FE6D272A85BB00318DCF /* AppDelegate.swift */; };
 		93E8FE70272A85BB00318DCF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E8FE6F272A85BB00318DCF /* SceneDelegate.swift */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		93057ED2272FC6270044909A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		937152022736678F00AFACF7 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
 		938D3D83272BDF76005B7896 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
 		93E8FE6A272A85BB00318DCF /* LootLogger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LootLogger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E8FE6D272A85BB00318DCF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				93E8FEA1272ACBD800318DCF /* ItemStrore.swift */,
 				93E8FE9F272AC43000318DCF /* Item.swift */,
 				938D3D83272BDF76005B7896 /* ItemCell.swift */,
+				937152022736678F00AFACF7 /* ImageStore.swift */,
 				93057ED2272FC6270044909A /* DetailViewController.swift */,
 				93E8FE76272A85BE00318DCF /* Assets.xcassets */,
 				93E8FE78272A85BE00318DCF /* LaunchScreen.storyboard */,
@@ -269,6 +272,7 @@
 				93E8FEA2272ACBD800318DCF /* ItemStrore.swift in Sources */,
 				938D3D84272BDF77005B7896 /* ItemCell.swift in Sources */,
 				93E8FEA0272AC43000318DCF /* Item.swift in Sources */,
+				937152032736678F00AFACF7 /* ImageStore.swift in Sources */,
 				93E8FE6E272A85BB00318DCF /* AppDelegate.swift in Sources */,
 				93E8FE9E272AC2FB00318DCF /* ItemsViewController.swift in Sources */,
 				93E8FE70272A85BB00318DCF /* SceneDelegate.swift in Sources */,
