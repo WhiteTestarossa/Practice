@@ -115,7 +115,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UINavigationC
         dateCreatedLabel.setContentHuggingPriority(.defaultLow, for: .vertical)
         
         //MARK: - ToolBar
-        toolBar = UIToolbar() // FIXME: CONSTRAINT BUG?
+        toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 100)) 
         toolBar.translatesAutoresizingMaskIntoConstraints = false
         var toolBarItems = [UIBarButtonItem]()
         toolBarItems.append(UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(choosePhotoSource(_:))))
