@@ -7,57 +7,61 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController,UICollectionViewDelegate {
+    
     //MARK: - Public Properties
-    var imageView: UIImageView!
+    var collectionView: UICollectionView!
     var store: PhotoStore!
+    let photoDataSource = PhotoDataSource()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.title = "Photorama"
-        photosImageView()
-        
-        store.fetchInterestingPhotos {
-            (photosResult) in
-            
+        photosCollectionView()
+        store.fetchInterestingPhotos { (photosResult) in
             switch photosResult {
             case let .success(photos):
                 print("Successfully found \(photos.count) photos.")
-                if let firstPhoto = photos.first {
-                    self.updateImageView(for: firstPhoto)
-                }
+                self.photoDataSource.photos = photos
             case let .failure(error):
                 print("Error fetching interesting photos: \(error)")
-                
+                self.photoDataSource.photos.removeAll()
+            }
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        }
+    }
+    
+    //MARK: - Collection View
+    func photosCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 90, height: 90)
+        layout.minimumLineSpacing = 2
+        layout.minimumInteritemSpacing = 2
+        layout.sectionInset.left = 2
+        layout.sectionInset.top = 2
+        layout.sectionInset.right = 2
+        layout.sectionInset.bottom = 2
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        collectionView.dataSource = photoDataSource
+        collectionView.delegate = self
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCollectionViewCell")
+        self.view.addSubview(collectionView)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let photo = photoDataSource.photos[indexPath.row]
+        store.fetchImage(for: photo) { result in
+            guard let photoIndex = self.photoDataSource.photos.firstIndex(of: photo), case let .success(image) = result else {
+                return
+            }
+            let photoIndexPath = IndexPath(item: photoIndex, section: 0)
+            if let cell = self.collectionView.cellForItem(at: photoIndexPath) as? PhotoCollectionViewCell {
+                cell.update(displaying: image)
             }
         }
     }
     
-    //MARK: - Image View
-    func photosImageView() {
-        imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(imageView)
-        
-        NSLayoutConstraint.activate([
-            imageView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            imageView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            imageView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
-        ])
-    }
-    
-    func updateImageView(for photo: Photo) {
-        store.fetchImage(for: photo) { (imageResult) in
-            switch imageResult {
-            case let .success(image):
-                self.imageView.image = image
-            case let .failure(error):
-                print("Error downloading image: \(error)")
-            }
-        }
-    }
 }
 
