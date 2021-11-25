@@ -63,5 +63,13 @@ class PhotosViewController: UIViewController,UICollectionViewDelegate {
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photoInfoVC = PhotoInfoViewController()
+        let photo = photoDataSource.photos[indexPath.row]
+        photoInfoVC.photo = photo
+        photoInfoVC.store = store
+        navigationController?.pushViewController(photoInfoVC, animated: true)
+    }
+    
 }
 
