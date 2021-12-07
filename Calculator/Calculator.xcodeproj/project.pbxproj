@@ -13,6 +13,7 @@
 		93460C5D275E330C00AA0473 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93460C5B275E330C00AA0473 /* Main.storyboard */; };
 		93460C5F275E330F00AA0473 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93460C5E275E330F00AA0473 /* Assets.xcassets */; };
 		93460C62275E330F00AA0473 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93460C60275E330F00AA0473 /* LaunchScreen.storyboard */; };
+		93460C6A275E482100AA0473 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93460C69275E482100AA0473 /* CalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		93460C5E275E330F00AA0473 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93460C61275E330F00AA0473 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93460C63275E330F00AA0473 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93460C69275E482100AA0473 /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,24 @@
 		93460C54275E330C00AA0473 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
-				93460C55275E330C00AA0473 /* AppDelegate.swift */,
-				93460C57275E330C00AA0473 /* SceneDelegate.swift */,
 				93460C59275E330C00AA0473 /* ViewController.swift */,
 				93460C5B275E330C00AA0473 /* Main.storyboard */,
+				93460C69275E482100AA0473 /* CalculatorBrain.swift */,
+				93460C6B275E4BA200AA0473 /* Supporting Files */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		93460C6B275E4BA200AA0473 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				93460C55275E330C00AA0473 /* AppDelegate.swift */,
+				93460C57275E330C00AA0473 /* SceneDelegate.swift */,
 				93460C5E275E330F00AA0473 /* Assets.xcassets */,
 				93460C60275E330F00AA0473 /* LaunchScreen.storyboard */,
 				93460C63275E330F00AA0473 /* Info.plist */,
 			);
-			path = Calculator;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +150,7 @@
 			files = (
 				93460C5A275E330C00AA0473 /* ViewController.swift in Sources */,
 				93460C56275E330C00AA0473 /* AppDelegate.swift in Sources */,
+				93460C6A275E482100AA0473 /* CalculatorBrain.swift in Sources */,
 				93460C58275E330C00AA0473 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,7 +300,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZBZZ66925;
-				INFOPLIST_FILE = Calculator/Info.plist;
+				INFOPLIST_FILE = "Calculator/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +319,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UZBZZ66925;
-				INFOPLIST_FILE = Calculator/Info.plist;
+				INFOPLIST_FILE = "Calculator/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
