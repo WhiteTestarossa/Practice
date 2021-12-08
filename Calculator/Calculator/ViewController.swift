@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var descriptionDisplay: UILabel!
     var userIsInMiddleOfTyping: Bool = false
     var displayValue: Double {
         get {
@@ -22,6 +23,7 @@ class ViewController: UIViewController {
     
     @IBAction func touchDigit(_ sender: UIButton) {
         let digit = sender.currentTitle!
+            
         if userIsInMiddleOfTyping {
             let textCurrentlyInDisplay = display.text!
             display.text = textCurrentlyInDisplay + digit
@@ -36,11 +38,23 @@ class ViewController: UIViewController {
             brain.setOperand(displayValue)
             userIsInMiddleOfTyping = false
         }
+        
         if let mathematicalSymbol = sender.currentTitle {
             brain.performOperation(mathematicalSymbol)
         }
+        
         if let result = brain.result {
             displayValue = result
+        }
+        descriptionDisplay.text = brain.description
+    }
+    
+    @IBAction func addFloatingPoint(_ sender: UIButton) {
+        let textCurrentlyInDisplay = display.text!
+        let point = sender.currentTitle!
+        if !textCurrentlyInDisplay.contains(Character(".")) {
+            display.text = textCurrentlyInDisplay + point
+            userIsInMiddleOfTyping = true
         }
     }
     
