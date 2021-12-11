@@ -26,7 +26,9 @@ class ViewController: UIViewController {
             
         if userIsInMiddleOfTyping {
             let textCurrentlyInDisplay = display.text!
-            display.text = textCurrentlyInDisplay + digit
+            if !textCurrentlyInDisplay.contains(".") || (digit != ".") {
+                display.text = textCurrentlyInDisplay + digit
+            }
         } else {
             display.text = digit
             userIsInMiddleOfTyping = true
@@ -46,16 +48,15 @@ class ViewController: UIViewController {
         if let result = brain.result {
             displayValue = result
         }
-        descriptionDisplay.text = brain.description
+        if let description = brain.description {
+            descriptionDisplay.text = description + (brain.resultIsPending ? " ..." : " =")
+        }
     }
     
-    @IBAction func addFloatingPoint(_ sender: UIButton) {
-        let textCurrentlyInDisplay = display.text!
-        let point = sender.currentTitle!
-        if !textCurrentlyInDisplay.contains(Character(".")) {
-            display.text = textCurrentlyInDisplay + point
-            userIsInMiddleOfTyping = true
-        }
+    @IBAction func clear(_ sender: UIButton) {
+        brain.clear()
+        displayValue = 0
+        descriptionDisplay.text = " "
     }
     
 }
