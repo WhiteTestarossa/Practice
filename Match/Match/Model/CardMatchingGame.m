@@ -47,6 +47,8 @@
 
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
+static const int COST_TO_CHOOSE = 1;
+
 -(void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
     
@@ -59,11 +61,17 @@ static const int MATCH_BONUS = 4;
                     int matchScore = [card match:@[otherCard]];
                     if (matchScore) {
                         self.score += MATCH_BONUS;
+                        otherCard.matched = YES;
+                        card.matched = YES;
                     } else {
-                        self.score +- MISMATCH_PENALTY;
+                        self.score -= MISMATCH_PENALTY;
+                        otherCard.chosen = NO;
                     }
+                    break;
                 }
             }
+            self.score -= COST_TO_CHOOSE;
+            card.chosen = YES;
         }
     }
 }

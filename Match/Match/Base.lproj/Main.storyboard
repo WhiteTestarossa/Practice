@@ -136,13 +136,6 @@
                                     <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tCQ-IU-ft7"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDF-Dc-c9t">
-                                <rect key="frame" x="20" y="819" width="208" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C0X-RE-SRP">
                                 <rect key="frame" x="257" y="568" width="91" height="151"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -154,12 +147,31 @@
                                     <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NQz-WL-jNZ"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score : 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmG-ZX-3vn">
+                                <rect key="frame" x="20" y="824" width="260" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.097928948700428009" green="0.54910296201705933" blue="0.24615013599395752" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="flipsLabel" destination="xDF-Dc-c9t" id="AXB-8x-hL2"/>
+                        <outlet property="scoreLabel" destination="nmG-ZX-3vn" id="zu2-DF-fj9"/>
+                        <outletCollection property="cardButtons" destination="C0X-RE-SRP" id="DIe-n9-yUD"/>
+                        <outletCollection property="cardButtons" destination="Wy0-e0-c5u" id="xWd-rl-AB3"/>
+                        <outletCollection property="cardButtons" destination="w7K-44-sBn" id="iKP-sr-FnV"/>
+                        <outletCollection property="cardButtons" destination="ojS-t2-P8Y" id="fn7-7i-qmZ"/>
+                        <outletCollection property="cardButtons" destination="T1x-OT-RW0" id="Evd-aC-obG"/>
+                        <outletCollection property="cardButtons" destination="Bai-Rz-XuR" id="1xr-DU-CjD"/>
+                        <outletCollection property="cardButtons" destination="c33-82-hNh" id="wtX-cd-niW"/>
+                        <outletCollection property="cardButtons" destination="Z95-Kv-yqq" id="7wE-Hb-AAq"/>
+                        <outletCollection property="cardButtons" destination="IeZ-YR-qcc" id="FJN-7n-Zlt"/>
+                        <outletCollection property="cardButtons" destination="zxE-kw-WPE" id="eJB-Sc-2kS"/>
+                        <outletCollection property="cardButtons" destination="AZl-QG-8n9" id="Juc-gU-BlS"/>
+                        <outletCollection property="cardButtons" destination="iKS-kS-5Qb" id="qNq-eS-aZA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
