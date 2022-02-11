@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9349647627B65B0E0069EDF6 /* Ghost.m in Sources */ = {isa = PBXBuildFile; fileRef = 9349647527B65B0E0069EDF6 /* Ghost.m */; };
+		9349647927B6614A0069EDF6 /* Dumm.m in Sources */ = {isa = PBXBuildFile; fileRef = 9349647827B6614A0069EDF6 /* Dumm.m */; };
 		935A744427B536CB0045D475 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 935A744327B536CB0045D475 /* main.m */; };
 		935A744C27B536E70045D475 /* Human.m in Sources */ = {isa = PBXBuildFile; fileRef = 935A744B27B536E70045D475 /* Human.m */; };
 		935A744F27B53A970045D475 /* Cyclist.m in Sources */ = {isa = PBXBuildFile; fileRef = 935A744E27B53A970045D475 /* Cyclist.m */; };
@@ -31,6 +33,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9349647027B652A20069EDF6 /* Jumpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Jumpers.h; sourceTree = "<group>"; };
+		9349647227B654B40069EDF6 /* Runners.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Runners.h; sourceTree = "<group>"; };
+		9349647427B65B0E0069EDF6 /* Ghost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ghost.h; sourceTree = "<group>"; };
+		9349647527B65B0E0069EDF6 /* Ghost.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Ghost.m; sourceTree = "<group>"; };
+		9349647727B6614A0069EDF6 /* Dumm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dumm.h; sourceTree = "<group>"; };
+		9349647827B6614A0069EDF6 /* Dumm.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dumm.m; sourceTree = "<group>"; };
 		935A744027B536CB0045D475 /* NSArray */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NSArray; sourceTree = BUILT_PRODUCTS_DIR; };
 		935A744327B536CB0045D475 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		935A744A27B536E70045D475 /* Human.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Human.h; sourceTree = "<group>"; };
@@ -62,6 +70,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9349647327B6552E0069EDF6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9349647027B652A20069EDF6 /* Jumpers.h */,
+				9349647227B654B40069EDF6 /* Runners.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		935A743727B536CB0045D475 = {
 			isa = PBXGroup;
 			children = (
@@ -82,14 +99,19 @@
 			isa = PBXGroup;
 			children = (
 				935A744327B536CB0045D475 /* main.m */,
+				9349647327B6552E0069EDF6 /* Protocols */,
 				935A745C27B545A70045D475 /* Animal.h */,
 				935A745D27B545A70045D475 /* Animal.m */,
+				9349647427B65B0E0069EDF6 /* Ghost.h */,
+				9349647527B65B0E0069EDF6 /* Ghost.m */,
 				935A745F27B546620045D475 /* Dog.h */,
 				935A746027B546620045D475 /* Dog.m */,
 				935A746227B5468A0045D475 /* Cat.h */,
 				935A746327B5468A0045D475 /* Cat.m */,
 				935A744A27B536E70045D475 /* Human.h */,
 				935A744B27B536E70045D475 /* Human.m */,
+				9349647727B6614A0069EDF6 /* Dumm.h */,
+				9349647827B6614A0069EDF6 /* Dumm.m */,
 				935A745627B53E2D0045D475 /* DF.h */,
 				935A745727B53E2D0045D475 /* DF.m */,
 				935A744D27B53A970045D475 /* Cyclist.h */,
@@ -161,10 +183,12 @@
 				935A744427B536CB0045D475 /* main.m in Sources */,
 				935A745827B53E2D0045D475 /* DF.m in Sources */,
 				935A746127B546620045D475 /* Dog.m in Sources */,
+				9349647927B6614A0069EDF6 /* Dumm.m in Sources */,
 				935A746427B5468A0045D475 /* Cat.m in Sources */,
 				935A745527B53AD40045D475 /* Swimmer.m in Sources */,
 				935A745227B53ABB0045D475 /* Runner.m in Sources */,
 				935A745E27B545A70045D475 /* Animal.m in Sources */,
+				9349647627B65B0E0069EDF6 /* Ghost.m in Sources */,
 				935A744F27B53A970045D475 /* Cyclist.m in Sources */,
 				935A744C27B536E70045D475 /* Human.m in Sources */,
 			);

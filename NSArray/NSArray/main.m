@@ -14,6 +14,8 @@
 #import "Animal.h"
 #import "Dog.h"
 #import "Cat.h"
+#import "Ghost.h"
+#import "Dumm.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         Human *human = [[Human alloc] initWithName:@"Sonny" height:189 weight:80 gender:@"M"];
@@ -75,7 +77,46 @@ int main(int argc, const char * argv[]) {
 //                NSLog(@"%@",[item name]);
 //            }
 //        }
-        
+        Ghost *ghost = [[Ghost alloc] initWith:100 mDJ:50 sOR:100 mD:50];
+        Dumm *d = [[Dumm alloc] initWithName:@"dmf"];
+        NSArray *idt = [NSArray arrayWithObjects:human,animal,ghost,d, nil];
+        for (id <Jumpers, Runners> object in idt) {
+            if ([object conformsToProtocol:@protocol(Jumpers)] && ![object conformsToProtocol:@protocol(Runners)]) {
+                [object jump];
+                NSLog(@"%lu",object.speedOfJump);
+                if ([object respondsToSelector:@selector(highJump)]) {
+                    [object highJump];
+                    NSLog(@"%lu", object.maxDistanceOfJump);
+                }
+            }
+            if ([object conformsToProtocol:@protocol(Runners)] && ![object conformsToProtocol:@protocol(Jumpers)]) {
+                [object run];
+                NSLog(@"%lu",object.speedOfRunner);
+                if ([object respondsToSelector:@selector(longRun)]) {
+                    [object longRun];
+                    NSLog(@"%lu", object.maxDistance);
+                }
+            }
+            if ([object conformsToProtocol:@protocol(Runners)] && [object conformsToProtocol:@protocol(Jumpers)]) {
+                [object run];
+                NSLog(@"maxSpeed: %lu",object.speedOfRunner);
+                NSLog(@"maxDeistance: %lu", object.maxDistance);
+                [object jump];
+                NSLog(@"maxJumpSpeed: %lu",object.speedOfJump);
+                NSLog(@"maxJumpDistance: %lu", object.maxDistance);
+                
+                if ([object respondsToSelector:@selector(longRun)] && [object respondsToSelector:@selector(highJump)]) {
+                    [object longRun];
+                    [object highJump];
+                } else {
+                    NSLog(@"GHOST IS BOZO!!!!!!");
+                }
+            }
+            if (![object conformsToProtocol:@protocol(Runners)] && ![object conformsToProtocol:@protocol(Jumpers)]) {
+                Dumm *a = (Dumm *) object;
+                NSLog(@"%@ = A DUMM?!?!??!", a.name);
+            }
+        }
         
     }
     return 0;

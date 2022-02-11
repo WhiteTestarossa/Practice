@@ -25,4 +25,13 @@
 - (NSString *)printName {
     return self.name;
 }
+
+//Protocol stuff
+- (void)jump {
+    NSLog(@"%@ Jumping", self.name);
+}
+-(void)highJump{
+    NSLog(@"%@ Jumping High",self.name);
+}
+
 @end

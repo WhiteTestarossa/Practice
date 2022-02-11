@@ -26,4 +26,15 @@
 - (NSString *)printName {
     return self.name;
 }
+
+//Protocol stuff
+
+- (void)run {
+    NSLog(@"%@ Running",self.name);
+}
+
+- (void)longRun {
+    NSLog(@"%@ Running Long", self.name);
+}
+
 @end
